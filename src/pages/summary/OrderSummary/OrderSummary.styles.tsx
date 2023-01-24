@@ -1,5 +1,5 @@
 import styled from 'styled-components'
 
-export const TestComponentContainer = styled.div`
+export const OrderSummaryContainer = styled.div`
   display: flex;
 ` 

@@ -1,11 +1,10 @@
 import './App.css'
-import { TestComponent } from './components/TestComponent'
+import { SummaryForm } from './pages/summary/SummaryForm'
 
 function App() {
   return (
     <div className="App">
-      <span>App</span>
-      <TestComponent value="test" />
+      <SummaryForm />
     </div>
   )
 }
