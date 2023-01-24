@@ -1,10 +1,12 @@
 import { render, screen, fireEvent } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { SummaryForm } from './SummaryForm'
 
-describe('Ensure checkbox can enable and disable the submit buuton', () => {
+describe('Ensure checkbox can enable and disable the submit buton', () => {
   render(<SummaryForm />)
   const checkBox = screen.getByRole('checkbox', { name: /agree/i })
   const button = screen.getByRole('button', { name: /submit/i })
+  const user = userEvent.setup()
 
   test('Checkbox should be unchecked by default', () => {
     expect(checkBox).not.toBeChecked()
@@ -14,17 +16,38 @@ describe('Ensure checkbox can enable and disable the submit buuton', () => {
     expect(button).toHaveAttribute('disabled')
   })
 
-  test('Button should be enabled when checking the checkbox', () => {
-    fireEvent.click(checkBox)
+  test('Button should be enabled when checking the checkbox', async () => {
+    await user.click(checkBox)
 
     expect(checkBox).toBeChecked()
     expect(button).toHaveAttribute('disabled', '')
   })
 
-  test('Uncheking the checkbox should disable the button', () => {
-    fireEvent.click(checkBox)
+  test('Uncheking the checkbox should disable the button', async () => {
+    await user.click(checkBox)
 
     expect(checkBox).not.toBeChecked()
     expect(button).toHaveAttribute('disabled')
+  })
+})
+
+describe('User should be able to read Terms and conditions', () => {
+  const user = userEvent.setup()
+  const button = screen.getByRole('button', { name: /terms and conditions/i })
+
+  it('Should display when Terms and conditions when user clicks the button', async () => {
+    await user.click(button)
+    // const terms = screen.getByText()
+    screen.getByRole('dialog', { name: /terms and conditions/i })
+  })
+
+  it('Should hide the Terms and conditions when user move the mouse over', async () => {
+    await user.click(button)
+    // const terms = screen.getByText()
+    const terms = screen.getByRole('dialog', { name: /terms and conditions/i })
+
+    await user.unhover(terms)
+
+    expect(terms).toBeFalsy()
   })
 })
