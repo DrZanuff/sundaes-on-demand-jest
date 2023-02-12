@@ -39,15 +39,17 @@ export function SummaryForm({ value }: SummaryFormProps) {
           }
           label="Agree"
         />
-        <Button aria-label="Terms and Conditions" color="secondary" onClick={handleOpenTerms}>
+        <Button aria-label="Terms and Conditions" color="secondary" onMouseEnter={handleOpenTerms}>
           Terms and Conditions
         </Button>
       </S.Row>
       <Button aria-label="Submit" disabled={!userAgreed} variant="contained">
         Submit
       </Button>
-      <Dialog open={showTerms} onClose={handleCloseTerms} onMouseLeave={handleCloseTerms}>
-        <DialogTitle id="alert-dialog-title">{'Terms and Conditions'}</DialogTitle>
+      <Dialog open={showTerms} onClose={handleCloseTerms}>
+        <DialogTitle id="alert-dialog-title" onMouseLeave={handleCloseTerms}>
+          {'Terms and Conditions'}
+        </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
             You'll not receive an actual sundae, this is just a test mock
