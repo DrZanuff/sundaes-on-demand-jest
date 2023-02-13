@@ -39,8 +39,8 @@ export function SummaryForm({ value }: SummaryFormProps) {
           }
           label="Agree"
         />
-        <Button aria-label="Terms and Conditions" color="secondary" onMouseEnter={handleOpenTerms}>
-          Terms and Conditions
+        <Button aria-label="Read Terms" color="secondary" onMouseEnter={handleOpenTerms}>
+          Read Terms
         </Button>
       </S.Row>
       <Button aria-label="Submit" disabled={!userAgreed} variant="contained">

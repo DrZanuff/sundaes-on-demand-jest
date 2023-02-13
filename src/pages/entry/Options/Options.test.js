@@ -10,5 +10,5 @@ test('display image for each scoop opitons from the server', async () => {
 
   // confirm all text of images
   const altText = scoopImages.map((scoop) => scoop.alt)
-  expect(altText).toEqual(['Chocolate', 'Vanilla'])
+  expect(altText).toEqual(['Chocolate scoop', 'Vanilla scoop'])
 })
