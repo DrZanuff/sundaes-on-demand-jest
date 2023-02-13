@@ -1,29 +1,44 @@
-import { render, screen, fireEvent } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { SummaryForm } from './SummaryForm'
 
-describe('Ensure checkbox can enable and disable the submit buton', () => {
-  render(<SummaryForm />)
+function renderSumaryForm() {
+  // https://kentcdodds.com/blog/test-isolation-with-react
+  const { debug } = render(<SummaryForm />)
   const checkBox = screen.getByRole('checkbox', { name: /agree/i })
   const button = screen.getByRole('button', { name: /submit/i })
+  const terms = screen.getByTestId('terms-and-conditions')
   const user = userEvent.setup()
 
+  return { checkBox, button, user, terms, debug }
+}
+
+describe('Ensure checkbox can enable and disable the submit buton', () => {
   test('Checkbox should be unchecked by default', () => {
+    const { checkBox } = renderSumaryForm()
+
     expect(checkBox).not.toBeChecked()
   })
 
   test('Button should be disabled by default', () => {
+    const { button } = renderSumaryForm()
+
     expect(button).toHaveAttribute('disabled')
   })
 
   test('Button should be enabled when checking the checkbox', async () => {
+    const { button, checkBox, user } = renderSumaryForm()
     await user.click(checkBox)
 
     expect(checkBox).toBeChecked()
-    expect(button).toHaveAttribute('disabled', '')
+    expect(button).not.toHaveAttribute('disabled')
   })
 
   test('Uncheking the checkbox should disable the button', async () => {
+    const { button, checkBox, user, debug } = renderSumaryForm()
+    debug()
+
+    await user.click(checkBox)
     await user.click(checkBox)
 
     expect(checkBox).not.toBeChecked()
@@ -32,25 +47,20 @@ describe('Ensure checkbox can enable and disable the submit buton', () => {
 })
 
 describe('User should be able to read Terms and conditions', () => {
-  render(<SummaryForm />)
-  const user = userEvent.setup()
-  // const buttonsList = screen.getAllByRole('button', { name: /read terms/i })
-  // const button = buttonsList.length > 0 ? buttonsList[0] : null
-  const button = screen.getByTestId('terms-and-conditions')
-
   it('Should display when Terms and conditions when user clicks the button', async () => {
-    await user.hover(button)
-    // const terms = screen.getByText()
+    const { terms, user } = renderSumaryForm()
+    await user.hover(terms)
+
     await screen.findByTestId('dialog-terms')
   })
 
   it('Should hide the Terms and conditions when user move the mouse over', async () => {
-    await user.hover(button)
-    // const terms = screen.getByText()
-    const terms = await screen.findByTestId('dialog-terms')
+    const { terms, user } = renderSumaryForm()
+    await user.hover(terms)
 
+    const dialog = await screen.findByTestId('dialog-terms')
     await user.unhover(terms)
 
-    expect(terms).toBeFalsy()
+    expect(dialog).not.toBeInTheDocument()
   })
 })
