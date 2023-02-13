@@ -44,7 +44,7 @@ describe('User should be able to read Terms and conditions', () => {
   it('Should hide the Terms and conditions when user move the mouse over', async () => {
     await user.hover(button)
     // const terms = screen.getByText()
-    const terms = screen.getByRole('dialog', { name: /terms and conditions/i })
+    const terms = screen.findByRole('dialog', { name: /terms and conditions/i })
 
     await user.unhover(terms)
 
