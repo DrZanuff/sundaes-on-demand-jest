@@ -9,3 +9,7 @@ export const Row = styled.div`
   display: flex;
   gap: 10px;
 `
+export const TermsContainer = styled.div`
+  display: flex;
+  position: relative;
+`

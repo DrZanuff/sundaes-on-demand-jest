@@ -1,15 +1,8 @@
 import { useState, useCallback } from 'react'
-import {
-  Checkbox,
-  FormControlLabel,
-  Button,
-  Dialog,
-  DialogTitle,
-  DialogContentText,
-  DialogContent
-} from '@mui/material'
+import { Checkbox, FormControlLabel, Button } from '@mui/material'
 import type { SummaryFormProps } from './SummaryForm.types'
 import * as S from './SummaryForm.styles'
+import { TermsPopUp } from '../../../components/TermsPopUp'
 
 export function SummaryForm({ value }: SummaryFormProps) {
   const [userAgreed, setUserAgreed] = useState(false)
@@ -39,25 +32,16 @@ export function SummaryForm({ value }: SummaryFormProps) {
           }
           label="Agree"
         />
-        <Button aria-label="Read Terms" color="secondary" onMouseEnter={handleOpenTerms}>
-          Read Terms
-        </Button>
+        <S.TermsContainer onMouseEnter={handleOpenTerms} onMouseLeave={handleCloseTerms}>
+          <Button aria-label="Read Terms" color="secondary">
+            Read Terms
+          </Button>
+          {showTerms && <TermsPopUp />}
+        </S.TermsContainer>
       </S.Row>
       <Button aria-label="Submit" disabled={!userAgreed} variant="contained">
         Submit
       </Button>
-      {showTerms && (
-        <Dialog open onClose={handleCloseTerms} data-testid={'dialog-terms'}>
-          <DialogTitle id="alert-dialog-title" onMouseLeave={handleCloseTerms}>
-            {'Terms and Conditions'}
-          </DialogTitle>
-          <DialogContent>
-            <DialogContentText id="alert-dialog-description">
-              You'll not receive an actual sundae, this is just a test mock
-            </DialogContentText>
-          </DialogContent>
-        </Dialog>
-      )}
     </S.SummaryFormContainer>
   )
 }
