@@ -46,16 +46,18 @@ export function SummaryForm({ value }: SummaryFormProps) {
       <Button aria-label="Submit" disabled={!userAgreed} variant="contained">
         Submit
       </Button>
-      <Dialog open={showTerms} onClose={handleCloseTerms} data-testid={'dialog-terms'}>
-        <DialogTitle id="alert-dialog-title" onMouseLeave={handleCloseTerms}>
-          {'Terms and Conditions'}
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            You'll not receive an actual sundae, this is just a test mock
-          </DialogContentText>
-        </DialogContent>
-      </Dialog>
+      {showTerms && (
+        <Dialog open onClose={handleCloseTerms} data-testid={'dialog-terms'}>
+          <DialogTitle id="alert-dialog-title" onMouseLeave={handleCloseTerms}>
+            {'Terms and Conditions'}
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              You'll not receive an actual sundae, this is just a test mock
+            </DialogContentText>
+          </DialogContent>
+        </Dialog>
+      )}
     </S.SummaryFormContainer>
   )
 }
