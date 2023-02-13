@@ -32,10 +32,15 @@ export function SummaryForm({ value }: SummaryFormProps) {
           }
           label="Agree"
         />
-        <S.TermsContainer onMouseEnter={handleOpenTerms} onMouseLeave={handleCloseTerms}>
+        <S.TermsContainer
+          onMouseEnter={handleOpenTerms}
+          onMouseLeave={handleCloseTerms}
+          role="button"
+          data-testid="terms-and-conditions">
           <Button aria-label="Read Terms" color="secondary">
             Read Terms
           </Button>
+          {/* <TermsPopUp /> */}
           {showTerms && <TermsPopUp />}
         </S.TermsContainer>
       </S.Row>
