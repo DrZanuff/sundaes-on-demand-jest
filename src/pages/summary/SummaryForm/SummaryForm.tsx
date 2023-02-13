@@ -46,7 +46,7 @@ export function SummaryForm({ value }: SummaryFormProps) {
       <Button aria-label="Submit" disabled={!userAgreed} variant="contained">
         Submit
       </Button>
-      <Dialog open={showTerms} onClose={handleCloseTerms}>
+      <Dialog open={showTerms} onClose={handleCloseTerms} data-testid={'dialog-terms'}>
         <DialogTitle id="alert-dialog-title" onMouseLeave={handleCloseTerms}>
           {'Terms and Conditions'}
         </DialogTitle>

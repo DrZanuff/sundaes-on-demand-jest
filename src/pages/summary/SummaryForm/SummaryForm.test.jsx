@@ -32,20 +32,21 @@ describe('Ensure checkbox can enable and disable the submit buton', () => {
 })
 
 describe('User should be able to read Terms and conditions', () => {
-  render(<SummaryForm />)
   const user = userEvent.setup()
-  const button = screen.getByRole('button', { name: /read terms/i })
+  const buttonsList = screen.getAllByRole('button', { name: /read terms/i })
+  const button = buttonsList.length > 0 ? buttonsList[0] : null
 
   it('Should display when Terms and conditions when user clicks the button', async () => {
+    // render(<SummaryForm />)
     await user.hover(button)
     // const terms = screen.getByText()
-    await screen.findByRole('dialog', { name: /terms and conditions/i })
+    await screen.findByTestId('dialog-terms')
   })
 
   it('Should hide the Terms and conditions when user move the mouse over', async () => {
     await user.hover(button)
     // const terms = screen.getByText()
-    const terms = await screen.findByRole('dialog', { name: /terms and conditions/i })
+    const terms = await screen.findByTestId('dialog-terms')
 
     await user.unhover(terms)
 
