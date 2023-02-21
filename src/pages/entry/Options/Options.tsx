@@ -2,6 +2,7 @@ import axios from 'axios'
 import { useEffect, useState, useMemo } from 'react'
 import { Item } from '../Item'
 import { AlertBanner } from '../../../components/AlertBanner'
+import { serverAddress } from '../../../mocks/servers'
 import type { OptionsProps, ItemsOptions } from './Options.types'
 import * as S from './Options.styles'
 
@@ -12,7 +13,7 @@ export function Options({ optionType }: OptionsProps) {
   useEffect(() => {
     const getOptionsFromServer = async () => {
       try {
-        const { data } = await axios.get<ItemsOptions[]>(`http:localhost:3030/${optionType}`)
+        const { data } = await axios.get<ItemsOptions[]>(`${serverAddress}/${optionType}`)
 
         setItems(data)
       } catch (err) {
