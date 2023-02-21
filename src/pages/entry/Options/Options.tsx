@@ -23,7 +23,7 @@ export function Options({ optionType }: OptionsProps) {
     getOptionsFromServer()
   }, [optionType])
 
-  if (error) {
+  if (error === true) {
     return <AlertBanner />
   }
 
