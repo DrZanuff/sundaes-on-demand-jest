@@ -1,8 +1,9 @@
+import { serverAddress } from '../../../mocks/servers'
 import type { ItemProps } from './Item.types'
 import * as S from './Item.styles'
 
 export function Item({ image, name, type }: ItemProps) {
-  const server = 'http://localhost:3030'
+  const server = serverAddress
 
   return (
     <S.ItemContainer>

@@ -1,11 +1,13 @@
 import axios from 'axios'
 import { useEffect, useState, useMemo } from 'react'
 import { Item } from '../Item'
+import { AlertBanner } from '../../../components/AlertBanner'
 import type { OptionsProps, ItemsOptions } from './Options.types'
 import * as S from './Options.styles'
 
 export function Options({ optionType }: OptionsProps) {
   const [items, setItems] = useState<ItemsOptions[]>([])
+  const [error, setError] = useState(false)
 
   useEffect(() => {
     const getOptionsFromServer = async () => {
@@ -14,12 +16,16 @@ export function Options({ optionType }: OptionsProps) {
 
         setItems(data)
       } catch (err) {
-        alert(`Error retrieving the options: ${optionType}`)
+        setError(true)
       }
     }
 
     getOptionsFromServer()
   }, [optionType])
+
+  if (error) {
+    return <AlertBanner />
+  }
 
   const optionItems = useMemo(() => {
     return items.map((item, idx) => (
